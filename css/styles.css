@@ -303,3 +303,53 @@ button:hover .glow-box {
     max-width: 420px;
   }
 }
+
+/* Typewriter styles (moved from inline HTML) */
+/* Reserve space with an invisible measure element and absolutely-position the visible typewriter to avoid layout shifts */
+#typewriter-wrap {
+  display: inline-block;
+  position: relative;
+}
+#typewriter-measure {
+  visibility: hidden;
+  white-space: pre-wrap;
+  display: inline-block;
+}
+/* #typewriter {
+  white-space: pre-wrap;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  color: inherit;
+} */
+
+#typewriter {
+  white-space: pre-wrap;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  color: inherit;
+  caret-color: transparent; /* ✅ browser caret hide */
+}
+
+#typewriter-cursor {
+  display: none !important;
+}
+/* cursor styles intentionally removed; element is hidden above */
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}

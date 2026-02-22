@@ -152,3 +152,55 @@ function openEmail(e) {
 
 // Expose openEmail globally so inline onclick in HTML still works
 window.openEmail = openEmail;
+
+// Typewriter effect: restart when the hero section scrolls into view
+(function () {
+  const text = "Operational Systems. Built for Scale.";
+  const el = document.getElementById("typewriter");
+  let i = 0;
+  const speed = 50;
+  let timers = [];
+  function clearTimers() {
+    timers.forEach((t) => clearTimeout(t));
+    timers = [];
+  }
+
+  function startTyping() {
+    if (!el) return;
+    clearTimers();
+    i = 0;
+    el.textContent = "";
+    function step() {
+      if (i <= text.length) {
+        el.textContent = text.slice(0, i);
+        i++;
+        timers.push(setTimeout(step, speed));
+      }
+    }
+    // small initial delay to match previous behavior
+    timers.push(setTimeout(step, 50));
+  }
+
+  // initial run on load
+  window.addEventListener("load", () => {
+    startTyping();
+  });
+
+  // restart whenever the hero section (closest section ancestor) enters view
+  if (el) {
+    const section = el.closest("section");
+    if (section && "IntersectionObserver" in window) {
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              startTyping();
+            }
+          });
+        },
+        { threshold: 0.5 },
+      );
+      obs.observe(section);
+    }
+  }
+})();
